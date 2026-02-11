@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Posters — Prateek Gupta</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0b0b0c;
+  color: #fff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* NAVBAR */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(11,11,12,0.95);
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  margin: 60px 0 40px;
+  font-size: 2.4rem;
+}
+
+/* GRID */
+.grid {
+  padding: 0 8% 120px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 70px;
+}
+
+.poster {
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <strong>All Posters</strong>
+  <a href="./portfolio.html">← Back to Portfolio</a>
+</nav>
+
+<h1>Poster Collection</h1>
+
+<div class="grid">
+  <!-- 34 POSTERS -->
+  <!-- Just add images sequentially -->
+  <script>
+    for (let i = 1; i <= 34; i++) {
+      document.write(`
+        <div class="poster" onclick="openModal('./images/poster${i}.jpg')">
+          <img src="./images/poster${i}.jpg">
+        </div>
+      `);
+    }
+  </script>
+</div>
+
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modalImage">
+</div>
+
+<script>
+function openModal(img) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modalImage").src = img;
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>

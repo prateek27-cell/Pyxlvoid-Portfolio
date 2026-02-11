@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Poster Portfolio — Prateek Gupta</title>
+
+<style>
+/* ---------------- RESET ---------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0b0b0c;
+  --card: rgba(255,255,255,0.06);
+  --text: #f5f5f5;
+  --muted: #9a9a9a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------------- GLOBAL ---------------- */
+section {
+  padding: 120px 140px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-photo img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.2);
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+}
+
+.hero-text hr {
+  width: 90px;
+  height: 4px;
+  background: white;
+  border: none;
+  margin: 20px 0;
+}
+
+.tagline {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.intro {
+  max-width: 650px;
+  color: var(--muted);
+}
+
+/* ---------------- ABOUT ---------------- */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: var(--card);
+}
+
+/* ---------------- PORTFOLIO ---------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.poster {
+  height: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+/* ---------------- MODAL ---------------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ---------------- CONTACT ---------------- */
+.contact a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: 1px solid white;
+  color: white;
+  text-decoration: none;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 900px) {
+  section { padding: 80px 40px; }
+  .about { grid-template-columns: 1fr; }
+  .hero-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-photo {
+    display: flex;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero reveal">
+  <div class="hero-layout">
+
+    <div class="hero-photo">
+      <img src="images/me.jpg" alt="Prateek Gupta">
+    </div>
+
+    <div class="hero-text">
+      <h1>Prateek Gupta</h1>
+      <hr>
+      <p class="tagline">Learning. Experimenting. Designing.</p>
+      <p class="intro">
+        I’m a student designer using posters as a medium to explore visual language,
+        push creative boundaries, and translate ideas into impactful compositions.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about reveal">
+  <div>
+    <h2>About Me</h2>
+    <p>I believe design is about intention, emotion, and communication.</p>
+  </div>
+
+  <div>
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="skill">Poster Design</div>
+      <div class="skill">Typography</div>
+      <div class="skill">Layout</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<!-- PORTFOLIO -->
+<section class="portfolio reveal">
+  <h2>Selected Posters</h2>
+  <div class="grid">
+
+    <div class="poster" onclick="openModal('images/poster1.jpg')">
+      <img src="images/poster1.jpg" alt="Poster 1">
+    </div>
+
+    <div class="poster" onclick="openModal('images/poster2.jpg')">
+      <img src="images/poster2.jpg" alt="Poster 2">
+    </div>
+
+    <div class="poster" onclick="openModal('images/poster3.jpg')">
+      <img src="images/poster3.jpg" alt="Poster 3">
+    </div>
+
+    <div class="poster" onclick="openModal('images/poster4.jpg')">
+      <img src="images/poster4.jpg" alt="Poster 4">
+    </div>
+
+    <div class="poster" onclick="openModal('images/poster5.jpg')">
+      <img src="images/poster5.jpg" alt="Poster 5">
+    </div>
+
+    <div class="poster" onclick="openModal('images/poster6.jpg')">
+      <img src="images/poster6.jpg" alt="Poster 6">
+    </div>
+
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modalImage">
+</div>
+
+<footer>
+  © 2026 Prateek Gupta · Poster Design Portfolio
+</footer>
+
+<script>
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+});
+
+function openModal(img) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modalImage").src = img;
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
