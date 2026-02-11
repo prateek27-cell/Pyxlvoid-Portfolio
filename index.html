@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Poster Portfolio — Prateek Gupta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+:root {
+  --bg:#0b0b0c;
+  --card:rgba(255,255,255,0.06);
+  --text:#ffffff;
+  --muted:#ffffff;
+}
+
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Segoe UI", system-ui, sans-serif;
+  line-height:1.6;
+}
+
+/* NAVBAR */
+nav {
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:18px 8%;
+  background:rgba(11,11,12,0.9);
+  backdrop-filter:blur(10px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+}
+
+nav h1 { font-size:1.3rem; }
+
+nav ul {
+  display:flex;
+  list-style:none;
+  gap:25px;
+}
+
+nav a {
+  color:var(--muted);
+  text-decoration:none;
+  font-size:0.95rem;
+}
+nav a:hover { color:white; }
+
+section { padding:120px 8%; }
+
+/* HERO */
+.hero {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero img {
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,0.3);
+  object-fit:cover;
+  margin-bottom:30px;
+}
+
+.hero h2 { font-size:3.5rem; }
+.line {
+  width:80px; height:4px;
+  background:white;
+  margin:20px auto;
+}
+
+.tagline { font-size:1.7rem; font-weight:600; }
+.intro { color:var(--muted); margin-top:15px; }
+
+/* ABOUT / SKILLS */
+.about, .skills, .contact {
+  max-width:900px;
+  margin:auto;
+  text-align:center;
+}
+
+.about h3, .skills h3, .portfolio h3, .contact h3 {
+  font-size:2.5rem;
+  margin-bottom:30px;
+}
+
+.about p, .contact p { color:var(--muted); }
+
+.skill-grid {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+}
+
+.skill {
+  background:var(--card);
+  padding:12px 22px;
+  border-radius:25px;
+}
+
+/* PORTFOLIO PREVIEW */
+.portfolio { text-align:center; }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:60px;
+  margin-top:50px;
+}
+
+.poster {
+  height:360px;
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.4s;
+}
+
+.poster img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.poster:hover {
+  transform:translateY(-10px);
+  box-shadow:0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+.see-more { 
+  display:inline-block;
+  margin-top:50px;
+  padding:14px 34px;
+  border:1px solid white;
+  border-radius:30px;
+  text-decoration:none;
+  color:white;
+}
+
+/* CONTACT */
+.contact a {
+  display:block;
+  margin-top:15px;
+  color:white;
+  text-decoration:none;
+}
+
+/* MODAL */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal img {
+  max-width:90%;
+  max-height:90%;
+}
+
+.close {
+  position:absolute;
+  top:25px;
+  right:35px;
+  font-size:2rem;
+  cursor:pointer;
+}
+
+footer {
+  text-align:center;
+  padding:40px;
+  color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h1>@Pixeloid.std</h1>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Posters</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home" class="hero">
+  <div>
+    <img src="./images/me.jpg">
+    <h2>Prateek Gupta</h2>
+    <div class="line"></div>
+    <p class="tagline">Learning. Experimenting. Designing.</p>
+    <p class="intro">
+      Welcome to Pixeloid.std, a creative space dedicated to impactful poster and graphic design. This portfolio showcases a collection of visually compelling works that combine strong aesthetics with meaningful storytelling. Each design is crafted with attention to detail, thoughtful composition, and a clear creative direction, reflecting a balance between artistic expression and strategic thinking.
+    </p>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <h3>About Me</h3>
+  <p>
+   I enjoy creating posters that combine strong visuals with clear meaning and intention. For me, design goes beyond aesthetics — it is about communicating ideas, emotions, and stories in a visually compelling way. I continuously experiment with typography, color, and composition to push creative boundaries and develop a distinctive visual language.</p>
+
+<p>Alongside my design journey, I am pursuing a B.Tech in Computer Science and Engineering (CSE) with a specialization in Cybersecurity at NIET, Greater Noida. My academic background has strengthened my analytical thinking and problem-solving abilities, allowing me to approach design with structure, clarity, and attention to detail. By balancing creativity with technical knowledge, I strive to create work that is not only aesthetically strong but also purposeful and strategically crafted.
+  </p>
+</section>
+
+<section id="skills" class="skills">
+  <h3>Skills</h3>
+  <div class="skill-grid">
+    <div class="skill">Poster Design</div>
+    <div class="skill">Typography</div>
+    <div class="skill">Visual Composition</div>
+    <div class="skill">Color Theory</div>
+    <div class="skill">Cybersecurity Fundamentals</div>
+    <div class="skill">Threat Detection</div>
+  </div>
+</section>
+
+<section id="work" class="portfolio">
+  <h3>POSTERS</h3>
+
+  <!-- ONLY 4 PREVIEW -->
+  <div class="grid">
+    <div class="poster" onclick="openModal('./images/poster1.jpg')"><img src="./images/poster1.jpg"></div>
+    <div class="poster" onclick="openModal('./images/poster2.jpg')"><img src="./images/poster2.jpg"></div>
+    <div class="poster" onclick="openModal('./images/poster3.jpg')"><img src="./images/poster3.jpg"></div>
+    <div class="poster" onclick="openModal('./images/poster4.jpg')"><img src="./images/poster4.jpg"></div>
+  </div>
+
+  <a href="all-posters.html" class="see-more">See More →</a>
+</section>
+
+<section id="contact" class="contact">
+  <h3>Contact</h3>
+  <p>Let’s connect.</p>
+  <a href="mailto:prateek27aprgupta@gmail.com">📧 prateek27aprgupta@gmail.com</a>
+  <a href="tel:+919355473795">📞 +91 -9355473795</a>
+</section>
+
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modalImage">
+</div>
+
+<footer>
+  © 2026 Prateek Gupta · Poster Portfolio
+</footer>
+
+<script>
+function openModal(img) {
+  modal.style.display="flex";
+  modalImage.src=img;
+}
+function closeModal() {
+  modal.style.display="none";
+}
+</script>
+
+</body>
+</html>
