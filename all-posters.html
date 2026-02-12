@@ -119,19 +119,59 @@ h1 {
 
 <div class="modal" id="modal">
   <span class="close" onclick="closeModal()">×</span>
-  <img id="modalImage">
-</div>
 
+  <button onclick="prevPoster()" 
+  style="position:absolute; left:40px; top:50%; transform:translateY(-50%);
+  font-size:40px; background:none; border:none; color:white; cursor:pointer;">
+  ❮
+  </button>
+
+  <img id="modalImage">
+
+  <button onclick="nextPoster()" 
+  style="position:absolute; right:40px; top:50%; transform:translateY(-50%);
+  font-size:40px; background:none; border:none; color:white; cursor:pointer;">
+  ❯
+  </button>
+</div>
 <script>
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImage");
+
+const posters = [];
+for (let i = 1; i <= 34; i++) {
+  posters.push(`./images/poster${i}.jpg`);
+}
+
+let currentIndex = 0;
+
 function openModal(img) {
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("modalImage").src = img;
+  currentIndex = posters.indexOf(img);
+  modal.style.display = "flex";
+  modalImage.src = img;
 }
 
 function closeModal() {
-  document.getElementById("modal").style.display = "none";
+  modal.style.display = "none";
 }
-</script>
 
+function nextPoster() {
+  currentIndex = (currentIndex + 1) % posters.length;
+  modalImage.src = posters[currentIndex];
+}
+
+function prevPoster() {
+  currentIndex = (currentIndex - 1 + posters.length) % posters.length;
+  modalImage.src = posters[currentIndex];
+}
+
+document.addEventListener("keydown", function(e) {
+  if (modal.style.display === "flex") {
+    if (e.key === "ArrowRight") nextPoster();
+    if (e.key === "ArrowLeft") prevPoster();
+    if (e.key === "Escape") closeModal();
+  }
+});
+</script>
 </body>
 </html>

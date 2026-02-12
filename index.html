@@ -310,7 +310,6 @@ footer {
 <footer>
   © 2026 Prateek Gupta · Poster Portfolio
 </footer>
-
 <script>
 const modal = document.getElementById("modal");
 const modalImage = document.getElementById("modalImage");
@@ -344,7 +343,6 @@ function prevPoster() {
   modalImage.src = posters[currentIndex];
 }
 
-// Keyboard controls
 document.addEventListener("keydown", function(e) {
   if (modal.style.display === "flex") {
     if (e.key === "ArrowRight") nextPoster();
@@ -353,6 +351,5 @@ document.addEventListener("keydown", function(e) {
   }
 });
 </script>
-
 </body>
 </html>
