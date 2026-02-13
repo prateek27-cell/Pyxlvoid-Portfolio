@@ -3,175 +3,434 @@
 <head>
 <meta charset="UTF-8">
 <title>All Posters — Prateek Gupta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+  /* IMAGE SLIDE ANIMATION */
+.modal-left{
+  position:relative;
+  overflow:hidden;
 }
 
-body {
-  background: #0b0b0c;
-  color: #fff;
-  font-family: "Segoe UI", system-ui, sans-serif;
+.modal-left img{
+  position:absolute;
+  max-width:100%;
+  max-height:100%;
+  border-radius:16px;
+  transition:transform 0.4s ease;
 }
 
-/* NAVBAR */
-nav {
-  position: sticky;
-  top: 0;
-  background: rgba(11,11,12,0.95);
-  padding: 20px 8%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.slide-left{
+  transform:translateX(-100%);
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 0.95rem;
+.slide-right{
+  transform:translateX(100%);
 }
 
-/* TITLE */
-h1 {
-  text-align: center;
-  margin: 60px 0 40px;
-  font-size: 2.4rem;
+.active-image{
+  transform:translateX(0);
 }
 
-/* GRID */
-.grid {
-  padding: 0 8% 120px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 70px;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:"Segoe UI",system-ui,sans-serif;
 }
 
-.poster {
-  height: 380px;
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: 0.4s ease;
+h1{
+  text-align:center;
+  margin:80px 0 50px;
 }
 
-.poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.back{
+  position:absolute;
+  top:30px;
+  left:40px;
+  text-decoration:none;
+  color:white;
 }
 
-.poster:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+.grid{
+  padding:0 8% 120px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:40px;
 }
 
-/* MODAL */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+.poster{
+  height:350px;
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-.modal img {
-  max-width: 90%;
-  max-height: 90%;
+.poster img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.close {
-  position: absolute;
-  top: 25px;
-  right: 35px;
-  font-size: 2rem;
-  cursor: pointer;
+.poster:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 50px rgba(0,0,0,0.6);
+}
+
+/* SLIDE MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:translateX(100%);
+  transition:0.6s ease;
+  z-index:2000;
+}
+
+.modal.active{
+  transform:translateX(0);
+}
+
+.modal-content{
+  display:flex;
+  width:90%;
+  height:85%;
+}
+
+.modal-left{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-left img{
+  max-width:100%;
+  max-height:100%;
+  border-radius:16px;
+}
+
+.modal-right{
+  flex:0.6;
+  padding:60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.modal-right h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.modal-right p{
+  color:#ccc;
+  line-height:1.7;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <strong>All Posters</strong>
-  <a href="./index.html">← Back to Portfolio</a>
-</nav>
+<a href="index.html" class="back">← Back to Home</a>
 
-<h1>Poster Collection</h1>
+<h1>Poster Vault</h1>
 
-<div class="grid">
-  <!-- 34 POSTERS -->
-  <!-- Just add images sequentially -->
-  <script>
-    for (let i = 1; i <= 34; i++) {
-      document.write(`
-        <div class="poster" onclick="openModal('./images/poster${i}.jpg')">
-          <img src="./images/poster${i}.jpg">
-        </div>
-      `);
-    }
-  </script>
-</div>
+<div class="grid" id="posterGrid"></div>
 
+<!-- SLIDE MODAL -->
 <div class="modal" id="modal">
-  <span class="close" onclick="closeModal()">×</span>
+  <div class="modal-content">
+    <div class="modal-left">
+      <img id="modalImage">
+    </div>
 
-  <button onclick="prevPoster()" 
-  style="position:absolute; left:40px; top:50%; transform:translateY(-50%);
-  font-size:40px; background:none; border:none; color:white; cursor:pointer;">
-  ❮
-  </button>
-
-  <img id="modalImage">
-
-  <button onclick="nextPoster()" 
-  style="position:absolute; right:40px; top:50%; transform:translateY(-50%);
-  font-size:40px; background:none; border:none; color:white; cursor:pointer;">
-  ❯
-  </button>
+    <div class="modal-right">
+      <h2 id="posterTitle"></h2>
+      <p id="posterDesc"></p>
+    </div>
+  </div>
 </div>
+
 <script>
-const modal = document.getElementById("modal");
-const modalImage = document.getElementById("modalImage");
+const grid=document.getElementById("posterGrid");
+const modal=document.getElementById("modal");
+const modalImage=document.getElementById("modalImage");
+const posterTitle=document.getElementById("posterTitle");
+const posterDesc=document.getElementById("posterDesc");
 
-const posters = [];
-for (let i = 1; i <= 34; i++) {
-  posters.push(`./images/poster${i}.jpg`);
+let posters = [
+
+  {
+    src: "images/poster1.jpg",
+    title: "The 1975 Concept Poster",
+    desc: "Minimal black & white aesthetic.\nStrong typographic hierarchy.\nMusic-inspired layout.\nEmotionally balanced composition."
+  },
+
+  {
+    src: "images/poster2.jpg",
+    title: "5:05 – Midnight Confessions",
+    desc: "A moody tribute to Arctic Monkeys and the late-night vulnerability of 5:05.\nThe black and white palette reflects emotional tension and introspection.\nSharp typography contrasts with soft shadows, symbolizing distance and longing.\nThis design captures the feeling of love spoken too late in the night."
+  },
+
+  {
+    src: "images/poster3.jpg",
+    title: "My Lips, My Apocalypse",
+    desc: "This poster visualizes chaos in motion—falling, losing control, surrendering.\nThe scattered papers represent collapsing thoughts and emotional overwhelm.\nBold red typography intensifies the feeling of inner destruction.\nA dramatic portrayal of self-expression at breaking point."  
+  },
+
+  {
+    src: "images/poster4.jpg",
+    title: "Vengeance in Red",
+    desc: "A bold cinematic composition inspired by The Batman.\nThe dominant red and black palette reflects rage, justice, and mystery.\nLayered collage elements resemble torn newspaper headlines and urban chaos.\nThis design embodies darkness, power, and the duality of a vigilante."
+  },
+
+ {
+    src: "images/poster5.jpg",
+   title: "No Substitute",
+    desc: "A performance-driven design centered around the Porsche GT3RS.\nClean symmetry and high contrast elevate the car as the true protagonist.\nRed accents highlight speed, aggression, and racing DNA.\nA minimal yet bold tribute to precision engineering."},
+
+   {
+    src: "images/poster6.jpg",
+    title: "Taste the Madness",
+    desc: "A psychological composition inspired by Hannibal’s refined darkness.\nDeep reds and textured gold typography reflect elegance and brutality.\nSymmetry enhances the unsettling calm beneath the violence.\nA visual exploration of intellect wrapped in horror."},
+
+   {
+    src: "images/poster7.jpg",
+    title: "The Healing Process",
+    desc: "Raw, emotional imagery blends pain and recovery into one narrative.\nDripping typography symbolizes wounds that are still open.\nThe stark monochrome visuals intensify feelings of vulnerability.\nA haunting representation of trauma and transformation." 
+  },
+
+   {
+    src: "images/poster8.jpg",
+    title: "Connection Beyond Distance",
+    desc: "Inspired by Michelangelo’s touch, this design explores human connection.\nEyes serve as portals—reflecting fragility, depth, and intimacy.\nMinimal color adds dramatic emotional focus.\nA conceptual piece about longing, presence, and unseen bonds."  },
+
+   {
+    src: "images/poster9.jpg",
+    title: "Romantic Homicide",
+    desc: "A melancholic visual interpretation of d4vd’s emotional storytelling.\nMuted florals contrast with dark undertones of heartbreak.\nThe layered composition evokes softness hiding inner pain.\nA poetic depiction of love turning destructive."  },
+
+   {
+    src: "images/poster10.jpg",
+    title: "DAMN. – Fragmented Reality",
+    desc: "Glitch effects and bold typography mirror Kendrick Lamar’s raw energy.\nThe floating figure symbolizes conflict between ego and truth.\nNeon distortion enhances the feeling of internal battle.\nA striking fusion of hip-hop culture and visual disruption."  },
+
+   {
+    src: "images/poster11.jpg",
+    title: "Elementary Love",
+    desc: "A vintage collage blending London’s charm with mystery.\nSoft sepia tones and layered cut-outs create nostalgic storytelling.\nHorses, architecture, and subtle symbolism merge romance and intellect.\nA visual journey through curiosity, love, and classic elegance."  },
+
+  {
+  src: "images/poster12.jpg",
+  title: "The Duo — Fast & Legacy",
+  desc: "A high-octane tribute to speed and brotherhood.\nMuscle car dominance meets cinematic typography."
+},
+
+{
+  src: "images/poster13.jpg",
+  title: "GNX — Album Visual Identity",
+  desc: "Tracklist-focused layout with strong hierarchy.\nMinimal monochrome styling enhances bold rap aesthetics."
+},
+
+{
+  src: "images/poster14.jpg",
+  title: "Where Were The Gods",
+  desc: "A mythological reinterpretation of Perseus and Medusa.\nDramatic typography and sculpture imagery amplify tragedy."
+},
+
+{
+  src: "images/poster15.jpg",
+  title: "Hulk — Rage Unleashed",
+  desc: "Exploring power and inner conflict through bold green dominance.\nLightning effects enhance intensity and symbolism."
+},
+
+{
+  src: "images/poster16.jpg",
+  title: "Idealism — O7",
+  desc: "A conceptual design exploring blindness and belief.\nMinimal contrast and centered composition create tension."
+},
+
+{
+  src: "images/poster17.jpg",
+  title: "What Do You Want To Say?",
+  desc: "A romantic cinematic collage capturing vulnerability.\nLayered stills and bold confession typography drive emotion."
+},
+
+{
+  src: "images/poster18.jpg",
+  title: "Kanye — Angel of Chaos",
+  desc: "Red gothic atmosphere symbolizing ego and divinity.\nStrong central silhouette creates dramatic presence."
+},
+
+{
+  src: "images/poster19.jpg",
+  title: "Kendrick Lamar — Money Trees",
+  desc: "Currency collage representing ambition and success.\nBold name typography strengthens identity-driven design."
+},
+
+{
+  src: "images/poster20.jpg",
+  title: "Knight Dollus — Deception",
+  desc: "Medieval-inspired character concept.\nLight and shadow emphasize mystery and strategic power."
+},
+
+{
+  src: "images/poster21.jpg",
+  title: "Chelsea vs Man City",
+  desc: "Sports energy captured through layered player cutouts.\nDynamic composition reflects rivalry and dominance."
+},
+
+{
+  src: "images/poster22.jpg",
+  title: "The Batman — Corporate Noir",
+  desc: "Luxury branding merged with dark vigilante aesthetic.\nTypography repetition builds psychological intensity."
+},
+
+{
+  src: "images/poster23.jpg",
+  title: "Money Chase — Collage Concept",
+  desc: "Consumerism and identity explored through layered visuals.\nBold red typography ties the narrative together."
+},
+   {
+  src: "images/poster24.jpg",
+  title: "I Live In Music",
+  desc: "A collage celebrating raw rock culture.\nLayered typography creates emotional intensity.\nGrunge textures enhance nostalgic aesthetics.\nExpresses identity through music history."
+},
+
+{
+  src: "images/poster25.jpg",
+  title: "Nirvana – Raw Emotion",
+  desc: "Deep red and black contrast for dramatic impact.\nLyrics integrated as storytelling elements.\nVintage performance imagery.\nCaptures rebellious 90s energy."
+},
+
+{
+  src: "images/poster26.jpg",
+  title: "About You – The 1975",
+  desc: "Moody lighting and cinematic atmosphere.\nRain overlay adds emotional depth.\nSoft neutral tones balance composition.\nA tribute to nostalgic modern pop."
+},
+
+{
+  src: "images/poster27.jpg",
+  title: "The Colosseum",
+  desc: "Historic architecture blended with warrior symbolism.\nPowerful sky tones enhance depth.\nStrong perspective framing.\nRepresents strength and legacy."
+},
+
+{
+  src: "images/poster28.jpg",
+  title: "Gilmore Girls",
+  desc: "Bold typography hierarchy.\nClean black background for high contrast.\nCharacter-focused composition.\nModern fan-art inspired layout."
+},
+
+{
+  src: "images/poster29.jpg",
+  title: "Top Fraggers",
+  desc: "Gaming-inspired bold visual direction.\nNeon red and yellow accents.\nFramed layout for structured balance.\nDynamic typography energy."
+},
+
+{
+  src: "images/poster30.jpg",
+  title: "Travis Scott – Utopia",
+  desc: "High contrast red aesthetic.\nGlitch-inspired background elements.\nStrong central focal subject.\nCaptures intensity and fame."
+},
+
+{
+  src: "images/poster31.jpg",
+  title: "Spider-Man Collage",
+  desc: "Comic-style layered visuals.\nHeroic pose composition.\nBold graphic overlays.\nCelebrates modern superhero identity."
+},
+
+{
+  src: "images/poster32.jpg",
+  title: "Universe Within",
+  desc: "Cosmic explosion center alignment.\nGlowing typography emphasis.\nMotivational theme integration.\nSymbolizes inner power and energy."
+},
+
+{
+  src: "images/poster33.jpg",
+  title: "The Batman – Vengeance",
+  desc: "High contrast black and red palette.\nCinematic layered poster design.\nTypography as dominant headline.\nDark hero-focused storytelling."
+},
+
+{
+  src: "images/poster34.jpg",
+  title: "Air Jordan Legacy",
+  desc: "Minimalistic luxury composition.\nStrong silhouette usage.\nBalanced typography and quote placement.\nCelebrates greatness and ambition."
+},
+
+];
+
+let currentIndex=0;
+
+function openModal(index){
+  currentIndex=index;
+  modalImage.src=posters[index].src;
+  posterTitle.innerText=posters[index].title;
+  posterDesc.innerText=posters[index].desc;
+  modal.classList.add("active");
 }
 
-let currentIndex = 0;
-
-function openModal(img) {
-  currentIndex = posters.indexOf(img);
-  modal.style.display = "flex";
-  modalImage.src = img;
+function closeModal(){
+  modal.classList.remove("active");
 }
 
-function closeModal() {
-  modal.style.display = "none";
+function nextPoster(){
+  modalImage.classList.add("slide-left");
+
+  setTimeout(()=>{
+    currentIndex=(currentIndex+1)%posters.length;
+
+    modalImage.src=posters[currentIndex].src;
+    posterTitle.innerText=posters[currentIndex].title;
+    posterDesc.innerText=posters[currentIndex].desc;
+
+    modalImage.classList.remove("slide-left");
+  },300);
 }
 
-function nextPoster() {
-  currentIndex = (currentIndex + 1) % posters.length;
-  modalImage.src = posters[currentIndex];
+function prevPoster(){
+  modalImage.classList.add("slide-right");
+
+  setTimeout(()=>{
+    currentIndex=(currentIndex-1+posters.length)%posters.length;
+
+    modalImage.src=posters[currentIndex].src;
+    posterTitle.innerText=posters[currentIndex].title;
+    posterDesc.innerText=posters[currentIndex].desc;
+
+    modalImage.classList.remove("slide-right");
+  },300);
 }
 
-function prevPoster() {
-  currentIndex = (currentIndex - 1 + posters.length) % posters.length;
-  modalImage.src = posters[currentIndex];
-}
-
-document.addEventListener("keydown", function(e) {
-  if (modal.style.display === "flex") {
-    if (e.key === "ArrowRight") nextPoster();
-    if (e.key === "ArrowLeft") prevPoster();
-    if (e.key === "Escape") closeModal();
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){
+    closeModal();
   }
 });
+
+document.addEventListener("keydown",function(e){
+  if(!modal.classList.contains("active")) return;
+
+  if(e.key==="ArrowRight") nextPoster();
+  if(e.key==="ArrowLeft") prevPoster();
+  if(e.key==="Escape") closeModal();
+});
+
+posters.forEach((poster, index) => {
+  grid.innerHTML += `
+    <div class="poster" onclick="openModal(${index})">
+      <img src="${poster.src}">
+    </div>
+  `;
+});
+
 </script>
+
 </body>
 </html>
