@@ -6,6 +6,77 @@ body {
     padding-top: 50px;
 }
 
+.section-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #00ffff;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  border-radius: 10px;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #00ffff;
+  }
+  to {
+    box-shadow: 0 0 20px #00ffff;
+  }
+}
+
+/* CONTACT SECTION */
+.contact {
+  text-align: center;
+  padding: 120px 20px;
+  background: #000;
+}
+
+.contact h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  text-decoration: none !important;
+  color: white !important;
+  font-size: 18px;
+  padding: 14px 30px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+.contact-links a:hover {
+  background: #fff;
+  color: #000 !important;
+  transform: translateY(-5px);
+}
+
 img {
     border-radius: 50%;
     margin-top: 20px;
