@@ -363,6 +363,51 @@ h2{
   color:black;
   transform:translateY(-5px);
 }
+/* ================= RESPONSIVE FIX ================= */
+
+/* Tablet */
+@media (max-width: 1024px){
+  .grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+
+  section{
+    padding:70px 6%;
+  }
+
+  .grid{
+    grid-template-columns: 1fr;
+    gap:25px;
+  }
+
+  .poster{
+    width:100%;
+    height:auto;
+  }
+
+  .hero img{
+    width:160px;
+    height:160px;
+  }
+
+  .tagline{
+    font-size:1rem;
+  }
+
+  .modal-content{
+    flex-direction:column;
+    height:90%;
+  }
+
+  .modal-right{
+    padding:30px 20px;
+  }
+
+}
 </style>
 </head>
 
@@ -382,7 +427,7 @@ h2{
 <!-- HERO -->
 <section id="home" class="hero">
 
-  <img src="images/me.jpg">
+  <img src="images/me.jpg" class="profile-img">
 
   <h1 class="hero-name">Prateek Gupta</h1>
 
@@ -390,12 +435,12 @@ h2{
     Poster Designer • Cybersecurity Student
   </div>
 
-  <p class="intro">
-    I am a creative poster designer who believes strong visuals tell powerful stories.
-    My work combines bold composition, thoughtful typography, and intentional color usage
-    to create designs that communicate meaning and impact. Alongside my creative journey,
-    I pursue Cybersecurity, balancing artistic expression with analytical thinking.
-  </p>
+  <p class="description">
+  I am a creative poster designer who believes strong visuals tell powerful stories.
+  My work combines bold composition, thoughtful typography, and intentional color usage
+  to create designs that communicate meaning and impact. Alongside my creative journey,
+  I pursue Cybersecurity, balancing artistic expression with analytical thinking.
+</p>
 
 </section>
 
