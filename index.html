@@ -408,6 +408,63 @@ h2{
   }
 
 }
+/* ===== CONTACT FORM ===== */
+
+.contact-form{
+  max-width:600px;
+  margin:50px auto 60px;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  padding:15px 18px;
+  border-radius:12px;
+  border:1px solid #333;
+  background:#111;
+  color:white;
+  font-size:1rem;
+  outline:none;
+  transition:0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+  border:1px solid #baff00;
+  box-shadow:0 0 15px rgba(186,255,0,0.4);
+}
+
+textarea{
+  resize:none;
+}
+
+.form-btn{
+  padding:15px;
+  border-radius:30px;
+  border:1px solid #baff00;
+  background:transparent;
+  color:#baff00;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+.form-btn:hover{
+  background:#baff00;
+  color:black;
+  transform:translateY(-5px);
+  box-shadow:0 0 20px #baff00;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+  .contact-form{
+    padding:0 20px;
+  }
+}
 </style>
 </head>
 
@@ -543,8 +600,36 @@ h2{
 <section id="contact" class="contact">
   <h2 class="section-title">Contact Me</h2>
 
-  <div class="contact-links">
+  <!-- CONTACT FORM -->
+  <form class="contact-form" 
+      action="https://formsubmit.co/stdpixeloid@gmail.com" 
+      method="POST">
     
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Your Email" required>
+    </div>
+
+    <div class="form-group">
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    </div>
+
+    <input type="hidden" name="_subject" value="New Portfolio Message!">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://pyxlvoid.vercel.app/">
+
+    <button type="submit" class="form-btn">
+      Send Message →
+    </button>
+
+</form>
+
+  <!-- SOCIAL LINKS -->
+  <div class="contact-links">
     <a href="https://instagram.com/prateek_g0804" target="_blank">
       📸 Instagram
     </a>
@@ -553,12 +638,10 @@ h2{
       💼 LinkedIn
     </a>
 
-    <a href="mailto:prateek27aprgupta@gmail.com">
+    <a href="mailto:stdpixeloid@gmail.com" target="_blank">
       📧 Email Me
     </a>
-
   </div>
 </section>
-
 </body>
 </html>
