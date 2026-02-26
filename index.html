@@ -26,6 +26,8 @@
   display: inline-block;
 }
 
+
+
 .hero{
   padding-top:120px;
 }
@@ -213,6 +215,7 @@ h2{
   text-align:center;
 }
 
+
 /* ===== CLEAN TECH FRAME ===== */
 
 .profile-frame{
@@ -234,30 +237,80 @@ h2{
   z-index:2;
 }
 
-/* Clean subtle scan border */
-.profile-frame::before{
-  content:"";
-  position:absolute;
-  width:260px;
-  height:300px;
-  border-radius:26px;
-  border:1px solid rgba(255,255,255,0.08);
-  z-index:1;
-  animation:scan 3s ease-in-out infinite;
+/* ===== SLIDING CYBER STRIPS ===== */
+
+.profile-frame{
+  position:relative;
+  z-index:2;
 }
 
-/* Softer glow */
-@keyframes scan{
+/* ===== CYBERPUNK LOCK FRAME ===== */
+
+.profile-frame{
+  position:relative;
+  width:320px;
+  height:380px;
+  margin:0 auto 60px;
+  padding:25px;
+  border-radius:20px;
+ background:
+  radial-gradient(circle at center,
+    rgba(180, 0, 30, 0.6),
+    rgba(0, 0, 0, 0.95)
+  );
+  animation:powerPulse 3s ease-in-out infinite;
+}
+
+/* Corner Brackets */
+.profile-frame span{
+  position:absolute;
+  width:40px;
+  height:40px;
+  border:2px solid #baff00;border: 2px solid #ff003c;
+box-shadow: 0 0 20px rgba(255,0,60,0.9);  
+}
+
+.profile-frame span:nth-child(1){
+  top:0; left:0;
+  border-right:none;
+  border-bottom:none;
+}
+
+.profile-frame span:nth-child(2){
+  top:0; right:0;
+  border-left:none;
+  border-bottom:none;
+}
+
+.profile-frame span:nth-child(3){
+  bottom:0; left:0;
+  border-right:none;
+  border-top:none;
+}
+
+.profile-frame span:nth-child(4){
+  bottom:0; right:0;
+  border-left:none;
+  border-top:none;
+}
+
+@keyframes powerPulse{
   0%{
-    box-shadow:0 0 0 rgba(186,255,0,0.25);
+    box-shadow:
+      0 0 20px rgba(180,0,30,0.4);
   }
   50%{
-    box-shadow:0 0 25px rgba(186,255,0,0.5);
+    box-shadow:
+      0 0 60px rgba(255,0,60,0.9),
+      0 0 140px rgba(180,0,30,0.6),
+      0 0 200px rgba(120,0,0,0.4);
   }
   100%{
-    box-shadow:0 0 0 rgba(186,255,0,0.25);
+    box-shadow:
+      0 0 20px rgba(180,0,30,0.4);
   }
 }
+
 
 /* ===== MOBILE ===== */
 @media (max-width:768px){
@@ -271,11 +324,6 @@ h2{
   .profile-img{
     width:180px;
     height:180px;
-  }
-
-  .profile-frame::before{
-    width:200px;
-    height:200px;
   }
 }
 
@@ -298,6 +346,16 @@ h2{
   max-width:850px;
   margin:auto;
   color:#ccc;
+}
+
+
+@keyframes floatCube{
+  0%{
+    transform:rotateX(25deg) rotateY(25deg) translateY(0px);
+  }
+  100%{
+    transform:rotateX(40deg) rotateY(40deg) translateY(-30px);
+  }
 }
 
 /* SKILLS */
@@ -469,16 +527,6 @@ h2{
     height:auto;
   }
 
-.profile-img{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  object-fit:cover;
-  margin-bottom:25px;
-  box-shadow:
-    0 25px 50px rgba(0,0,0,0.7),
-    0 0 40px rgba(186,255,0,0.3);
-}
   .tagline{
     font-size:1rem;
   }
@@ -554,6 +602,12 @@ textarea{
 </head>
 
 <body>
+
+  <div class="global-3d">
+  <div class="float techgrid"></div>
+  <div class="float glitch"></div>
+</div>
+  
   <nav class="navbar">
   <div class="logo">Pyxlvoid</div>
   
@@ -568,6 +622,15 @@ textarea{
 
 <!-- HERO -->
 <section id="home" class="hero">
+
+<div class="cyber-objects">
+  <div class="cube"></div>
+  <div class="pyramid"></div>
+  <div class="ring"></div>
+  <div class="dot dot1"></div>
+  <div class="dot dot2"></div>
+</div>
+
 
   <div class="profile-frame">
   <img src="images/me.jpg" class="profile-img">
@@ -730,5 +793,23 @@ textarea{
     </a>
   </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+document.addEventListener("scroll", function(){
+
+  const scrollY = window.scrollY;
+
+  document.querySelectorAll(".float").forEach((el, i)=>{
+
+    let speed = (i + 1) * 0.1;
+
+    el.style.transform =
+      "translateY(" + scrollY * speed + "px)";
+  });
+
+});
+</script>
+
 </body>
 </html>
