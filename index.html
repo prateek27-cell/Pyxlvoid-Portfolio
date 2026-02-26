@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
   <head>
   <meta charset="UTF-8">
   <title>Poster Portfolio — Prateek Gupta</title>
@@ -16,8 +15,6 @@
 
   gtag('config', 'G-FLQ09SH4EE');
 </script>
-
-</head>
 <meta charset="UTF-8">
 <title>Poster Portfolio — Prateek Gupta</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +24,10 @@
   .hero-name{
   position: relative;
   display: inline-block;
+}
+
+.hero{
+  padding-top:120px;
 }
 
 .hero-name::after{
@@ -204,14 +205,78 @@ h2{
   text-align:center;
 }
 
-.hero img{
-  width:220px;
-  height:220px;
-  border-radius:50%;
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+/* ===== CLEAN TECH FRAME ===== */
+
+.profile-frame{
+  position:relative;
+  width:300px;
+  height:300px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto 70px;
+}
+
+.profile-img{
+  width:240px;
+  height:270px;
   object-fit:cover;
-  margin-bottom:25px;
-  border:1px solid #670808;
-  box-shadow:0 0 100px #ff0000;
+  border-radius:22px;
+  position:relative;
+  z-index:2;
+}
+
+/* Clean subtle scan border */
+.profile-frame::before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:300px;
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,0.08);
+  z-index:1;
+  animation:scan 3s ease-in-out infinite;
+}
+
+/* Softer glow */
+@keyframes scan{
+  0%{
+    box-shadow:0 0 0 rgba(186,255,0,0.25);
+  }
+  50%{
+    box-shadow:0 0 25px rgba(186,255,0,0.5);
+  }
+  100%{
+    box-shadow:0 0 0 rgba(186,255,0,0.25);
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:768px){
+
+  .profile-frame{
+    width:220px;
+    height:220px;
+    margin-bottom:50px;
+  }
+
+  .profile-img{
+    width:180px;
+    height:180px;
+  }
+
+  .profile-frame::before{
+    width:200px;
+    height:200px;
+  }
 }
 
 .tagline{
@@ -252,7 +317,12 @@ h2{
   background:#ffffff;
   color:black;
   transform:translateY(-5px) scale(1.05);
-  box-shadow:0 0 20px #baff00;
+  box-shadow:0 0 20px #ff0000;
+}
+
+.profile-frame:hover .profile-img{
+  transform:translateY(-6px);
+  transition:0.4s ease;
 }
 
 .skill:active{
@@ -399,11 +469,16 @@ h2{
     height:auto;
   }
 
-  .hero img{
-    width:160px;
-    height:160px;
-  }
-
+.profile-img{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:25px;
+  box-shadow:
+    0 25px 50px rgba(0,0,0,0.7),
+    0 0 40px rgba(186,255,0,0.3);
+}
   .tagline{
     font-size:1rem;
   }
@@ -494,12 +569,14 @@ textarea{
 <!-- HERO -->
 <section id="home" class="hero">
 
+  <div class="profile-frame">
   <img src="images/me.jpg" class="profile-img">
+</div>
 
   <h1 class="hero-name">Prateek Gupta</h1>
 
   <div class="tagline">
-    Poster Designer • Cybersecurity Student
+    Poster Designer | Cybersecurity Student | NIET, Greater Noida
   </div>
 
   <p class="description">
