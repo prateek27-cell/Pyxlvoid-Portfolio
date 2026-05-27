@@ -135,3 +135,59 @@ body {
 
 }
 
+.hero-right{
+    position: relative;
+}
+
+.moving-logo{
+    position: absolute;
+
+    top: -70px;
+
+    left: -300%;
+
+    transform: translateX(-50%);
+
+    width: -100vw;
+
+    overflow: hidden;
+
+    z-index: 1;
+
+    
+}
+
+.moving-track{
+    display: flex;
+
+    width: max-content;
+
+    animation: logoLoop 20s linear infinite;
+}
+
+/* logo text */
+.moving-track span{
+    font-size: 7rem;
+    font-weight: 900;
+
+    white-space: nowrap;
+
+    padding-right: 120px;
+
+    color: rgba(255,255,255,0.05);
+
+    letter-spacing: -2px;
+}
+
+/* animation */
+@keyframes logoLoop{
+
+    from{
+        transform: translateX(0);
+    }
+
+    to{
+        transform: translateX(-50%);
+    }
+
+}
